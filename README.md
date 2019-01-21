@@ -8,50 +8,51 @@
 Tarpaulin is a code coverage reporting tool for rust's `cargo` build system.
 
 
-## Project name
-A tarpaulin is a waterproof cloth used to cover cargo on a ship.
-
 ## Status - implemented features
-- provides working line coverage.
+- Provides working line coverage.
 - Uploading coverage to https://coveralls.io or https://codecov.io
+- Produces annotated coverage reports
+- Coverage reports in the style of existing tools (i.e. kcov)
 
-tarpaulin is still in early development and may contain bugs. Please report any problems as issues, but please first search to see if it has already been described.
+Tarpaulin is still in early development and may contain bugs. Please report any problems as issues, but please first search to see if it has already been described.
+
+As Tarpaulin loads binary
+files into memory and parses the debugging information, different setups could
+lead to coverage not working. In this instance, please raise an issue detailing
+your setup and an example project and I'll attempt to fix it (please link us to
+a repo and the commit containing your project and paste the verbose output).
 
 Also please see our roadmap for planned features.
 
-## Supported platform
-Only Linux on x86_64 processors are supported.
+## Supported platforms
+- Linux on x86_64 processors are supported.
+- [Mac support is being worked on.](https://github.com/xd009642/tarpaulin/issues/152)
 
-- *This is sufficient to run Tarpaulin on popular CI tools like Travis.*
+This is sufficient to run Tarpaulin on popular CI tools like Travis.
 
-- tarpaulin can also be run in Docker, which is useful for when you don't use Linux but
-want to run it locally, e.g. during development. See below for how to do that.
+Also, [`tarpaulin` can be run in Docker](#docker). Useful if you don't use Linux but needs tarpaulin locally, e.g. during development. See below for how to use Docker.
 
 Tarpaulin relies on adding breakpoints in the tested executables and traces their execution, and this requires processor and OS specific code.
 After tarpaulin reaches 1.0.0 we'll be very interested in PRs to improve multi platform support.
 
+**Rust 1.23 introduced a regression in the compiler affecting tarpaulin's
+accuracy. If you see missing lines or files, check your compiler version.**
 
 **Due to unstable features in syn and issues with not packaging tarpaulin with
 the Cargo.lock file tarpaulin is now a nightly only crate. If you don't run
 nightly by default replace all calls to `cargo tarpaulin` with 
 `cargo +nightly tarpaulin`**
 
-## Features
+## Install `cargo-tarpaulin` from crates.io
 
-Below is a list of features currently implemented. As Tarpaulin loads binary
-files into memory and parses the debugging information, different setups could
-lead to coverage not working. In this instance, please raise an issue detailing
-your setup and an example project and I'll attempt to fix it (please link us to
-a repo and the commit containing your project and paste the verbose output).
+```text
+RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin
+```
 
-* Line coverage
-* Uploading coverage to https://coveralls.io or https://codecov.io
+- Because of the `syn` dependency you need `RUSTFLAGS` to enable
+the semver exempt functionality to report positions in the source code. 
 
-## Usage
-
-### Installation
-
-Tarpaulin depends on cargo which depends on SSL. Make sure you've installed
+- Tarpaulin depends on cargo which depends on SSL. Make sure you've installed
 your distros SSL development libraries and they are on your path before
 attempting to install tarpaulin. For example for Debian/Ubuntu:
 
@@ -59,17 +60,12 @@ attempting to install tarpaulin. For example for Debian/Ubuntu:
 apt-get update && apt-get install libssl-dev pkg-config cmake zlib1g-dev
 ```
 
-Tarpaulin is a command-line program, you install it into your linux development
-environment with cargo install:
+## Or through Docker
 
-```text
-RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin
-```
-
-Because of the `syn` dependency you need the following `RUSTFLAGS` to enable
-the semver exempt functionality to report positions in the source code. 
 Alternatively, you can use the docker develop images or the prebuilt github releases
 for travis-ci.
+
+## Usage
 
 ### Command line
 
@@ -259,9 +255,6 @@ Issues, feature requests and pull requests are always welcome! For a guide on
 how to approach bugs found in Tarpaulin and adding features please check 
 [CONTRIBUTING](CONTRIBUTING.md).
 
-Rust 1.23 introduced a regression in the compiler affecting tarpaulin's
-accuracy. If you see missing lines or files, check your compiler version.
-
 ## Roadmap
 
 - [x] Line coverage for tests
@@ -277,6 +270,9 @@ accuracy. If you see missing lines or files, check your compiler version.
 
 Tarpaulin is currently licensed under the terms of both the MIT license and the
 Apache License (Version 2.0). See LICENSE-MIT and LICENSE-APACHE for more details.
+
+## Project name
+A tarpaulin is a waterproof cloth used to cover cargo on a ship.
 
 ## Thanks
 
