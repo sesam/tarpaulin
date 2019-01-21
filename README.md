@@ -5,21 +5,31 @@
 [![License:MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docker](https://img.shields.io/docker/automated/xd009642/tarpaulin.svg)](https://hub.docker.com/r/xd009642/tarpaulin/)
 
-Tarpaulin is designed to be a code coverage reporting tool for the Cargo build
-system, named for a waterproof cloth used to cover cargo on a ship. Currently,
-tarpaulin provides working line coverage but is still in the early development
-stage and therefore may contain some bugs. A lot of work has been done to get it
-working on some example projects and smaller crates so please report anything
-you find that's wrong. Also, check out our roadmap for planned features.
+Tarpaulin is a code coverage reporting tool for rust's `cargo` build system.
 
-Tarpaulin only supports x86_64 processors running Linux. This is because
-instrumenting breakpoints into executables and tracing their execution requires
-processor and OS specific code. It is a goal when greater stability is reached
-to add wider system support, however this is sufficient to run Tarpaulin on
-popular CI tools like Travis.
 
-It can also be run in Docker, which is useful for when you don't use Linux but
+## Project name
+A tarpaulin is a waterproof cloth used to cover cargo on a ship.
+
+## Status - implemented features
+- provides working line coverage.
+- Uploading coverage to https://coveralls.io or https://codecov.io
+
+tarpaulin is still in early development and may contain bugs. Please report any problems as issues, but please first search to see if it has already been described.
+
+Also please see our roadmap for planned features.
+
+## Supported platform
+Only Linux on x86_64 processors are supported.
+
+- *This is sufficient to run Tarpaulin on popular CI tools like Travis.*
+
+- tarpaulin can also be run in Docker, which is useful for when you don't use Linux but
 want to run it locally, e.g. during development. See below for how to do that.
+
+Tarpaulin relies on adding breakpoints in the tested executables and traces their execution, and this requires processor and OS specific code.
+After tarpaulin reaches 1.0.0 we'll be very interested in PRs to improve multi platform support.
+
 
 **Due to unstable features in syn and issues with not packaging tarpaulin with
 the Cargo.lock file tarpaulin is now a nightly only crate. If you don't run
